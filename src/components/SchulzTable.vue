@@ -1,5 +1,8 @@
 <template>
-	<div class="table__wrapper">
+	<div 
+		class="table__wrapper"
+		:class="{ 'animated': reloadAnimation }"
+	>
 		<table>
 			<tbody>
 				<div 
@@ -33,7 +36,8 @@ import { mapGetters, mapMutations } from 'vuex'
 	export default {
 		data () {
 			return {
-				cellsData: []
+				cellsData: [],
+				reloadAnimation: false
 			}
 		},
 		components: {
@@ -56,12 +60,27 @@ import { mapGetters, mapMutations } from 'vuex'
 		watch: {
 			reloading (val) {
 				if (val) {
-					if (this.dataType === 'numbers') {
-						this.numbers()
-					} else if (this.dataType === 'words') {
-						this.words()
-					}
+					this.reloadAnimation = true
+					let self = this
+					const promise = () => new Promise(function(resolve) {
+						setTimeout(() => {
+							if (self.dataType === 'numbers') {
+								self.numbers()
+							} else if (self.dataType === 'words') {
+								self.words()
+							}
+							resolve()
+						},500)
+
+					})
+					promise().then(() => new Promise(resolve => {
+						setTimeout(() => {
+							this.reloadAnimation = false
+							resolve()
+						},  500)
+					}))
 				}
+				
 				this.reloadMutation(false)
 			},
 			dataType (val) {
@@ -136,6 +155,13 @@ import { mapGetters, mapMutations } from 'vuex'
 		padding: 3px;
 		background-color: rgba(0,0,0,.4);
 		border-radius: 8px;
+		
+
+		&.animated {
+			transition: transform 1s ease-in-out;
+			transform: rotate(360deg);
+		}
+
 		table {
 			border-collapse: collapse;
 			margin: 0 auto;

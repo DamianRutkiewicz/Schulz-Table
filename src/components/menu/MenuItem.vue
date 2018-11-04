@@ -37,6 +37,8 @@
 	</li>
 </template>
 <script>
+import { mapMutations } from 'vuex'
+
 	export default {
 		props: {
 			show: {
@@ -76,6 +78,9 @@
 			}
 		},
 		methods: {
+			...mapMutations([
+				'reloadMutation'
+			]),
 			increment () {
 				if (this.sizeBox) {
 					this.$emit('incrementSize')
@@ -91,10 +96,12 @@
 				}
 			},
 			selectWords () {
-				this.$emit('selectData', 'words')
+				setTimeout(() => this.$emit('selectData', 'words'), 500)
+				this.reloadMutation(true)
 			},
 			selectNumbers () {
-				this.$emit('selectData', 'numbers')
+				setTimeout(() => this.$emit('selectData', 'numbers'), 500)
+				this.reloadMutation(true)
 			}
 		}
 	}

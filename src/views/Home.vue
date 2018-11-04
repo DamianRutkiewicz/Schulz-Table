@@ -1,24 +1,24 @@
 <template>
-  <div class="home">
-  	<div class="title">
-  		<h1>Schulz Table</h1>
-  	</div>
-    <properties-menu
-      @incrementSize="incrementSizeMutation"
-      @decrementSize="decrementSizeMutation"
-      @selectData="selectData"
-      @incrementZoom="incrementZoomMutation"
-      @decrementZoom="decrementZoomMutation"
-    />
-    <div class="content">
-    	<schulz-table
-    		:size="getSize"
-    		:dataType="getDataType"
-    		:zoom="getZoom"
-    	/>
-    	<timer/>
-    </div>
-  </div>
+	<div class="home">
+		<div class="title">
+			<h1>Schulz Table</h1>
+		</div>
+		<properties-menu
+			@incrementSize="incrementSizeMutation"
+			@decrementSize="decrementSizeMutation"
+			@selectData="selectData"
+			@incrementZoom="incrementZoomMutation"
+			@decrementZoom="decrementZoomMutation"
+		/>
+		<div class="content">
+			<schulz-table
+				:size="getSize"
+				:dataType="getDataType"
+				:zoom="getZoom"
+			/>
+			<timer/>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -31,37 +31,37 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
-  name: 'home',
-  data () {
-  	return {
+	name: 'home',
+	data () {
+		return {
 
-  	}
-  },
-  components: {
-  	SchulzTable,
-    PropertiesMenu,
-  	Timer,
-    FontAwesomeIcon
-  },
-  computed: {
-  	...mapGetters([
-  		'getSize',
-  		'getDataType',
-  		'getZoom'
-  	])
-  },
-  methods: {
-  	...mapMutations([
-  		'incrementSizeMutation',
-  		'decrementSizeMutation',
-  		'incrementZoomMutation',
-  		'decrementZoomMutation',
-  		'selectDataMutation'
-  	]),
-  	selectData (name) {
-  		this.selectDataMutation(name)
-  	}
-  }
+		}
+	},
+	components: {
+		SchulzTable,
+		PropertiesMenu,
+		Timer,
+		FontAwesomeIcon
+	},
+	computed: {
+		...mapGetters([
+			'getSize',
+			'getDataType',
+			'getZoom'
+		])
+	},
+	methods: {
+		...mapMutations([
+			'incrementSizeMutation',
+			'decrementSizeMutation',
+			'incrementZoomMutation',
+			'decrementZoomMutation',
+			'selectDataMutation'
+		]),
+		selectData (name) {
+			this.selectDataMutation(name)
+		}
+	}
 }
 </script>
 <style lang="scss">
